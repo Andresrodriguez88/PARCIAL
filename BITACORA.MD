@@ -16,3 +16,4 @@ Nota: js ejecuta linea por linea, añgunas lineas se pueden demorar pero el cont
 6.1  usando el servicio https://geojson.io/#map=15.07/4.6917/-74.06557
 # Descargar los datos filtrados desde la API (servicio REST)
 
+# -------
