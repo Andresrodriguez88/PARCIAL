@@ -18,3 +18,4 @@ Nota: js ejecuta linea por linea, añgunas lineas se pueden demorar pero el cont
 
 # -------
 clase 01 de marzo
+e
