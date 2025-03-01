@@ -20,7 +20,8 @@ async function loadPolygon() {
     }).addTo(map);
 }
 loadPolygon();
-
+// con esto visualizaba los puntos antes de asignarlos al boton
+/*
 async function loadPoint() {
     let myData2 = await fetch('arboles_andes.geojson');
     let myPoint = await myData2.json();
@@ -36,9 +37,94 @@ async function loadPoint() {
     }).addTo(map);
 }   
 loadPoint();
-
+*/
 let btnTrees = document.getElementById('btnTrees');
-btnTrees.addEventListener('click', () => alert("hola"));
+btnTrees.addEventListener('click', 
+    async () => {
+        let response = await fetch("Arboles_andes.geojson"); 
+        let datos = await response.json();
+
+        // Agregar la capa al mapa
+        L.geoJson(
+            datos, 
+            {
+                pointToLayer: (feature, latlong) => {
+                    return L.circleMarker(latlong, {
+                        radius: 5,
+                        fillColor: 'green',
+                        weight: 1
+                    }); 
+                }
+            }
+        ).addTo(map); // Se asegura que el método se encadene correctamente
+    }
+)
+
+// manejador de boton distance
+/*let btnTrees = document.getElementById('btnDistance');
+btnTrees.addEventListener('click', 
+    async () => {
+        let response = await fetch("Arboles_andes.geojson"); 
+        let datos = await response.json(); 
+        //tomar los datos y maperlo la llave faeure que esta en indexe 1 ver archivi
+        let trees = datos.map((myElement,index))=>{
+            id:index+1,
+            coordinates:myElement.geometry.coordinates
+        }
+        }
+     )
+ */
+     let btnDistance = document.getElementById('btnDistance');
+     btnDistance.addEventListener('click', async () => {
+         let response = await fetch("Arboles_andes.geojson"); 
+         let datos = await response.json(); 
+     
+         let trees = datos.features.map((myElement, index) => ({
+             id: index + 1,
+             coordinates: myElement.geometry.coordinates
+         }));
+     
+         console.log(trees);
+     
+         let distance = [];
+         
+         trees.forEach(treeA => { // Cambié `=` por `=>` en la función de callback
+             trees.forEach(treeB => {
+                 // Calcular la distancia de treeA a cada uno de los treeB
+                 let dist = turf.distance(
+                     turf.point(treeA.coordinates),
+                     turf.point(treeB.coordinates)
+                 );
+     
+                 distance.push([
+                     `Árbol ${treeA.id}`,
+                     `Árbol ${treeB.id}`,
+                     dist.toFixed(3)  
+                 ]);
+             });
+         });
+     
+         generatePdf(distance, trees.length); // Se corrigió `lenght` a `length`
+     });
+     
+     function generatePdf(distance, totalTrees) {
+         let { jsPDF } = window.jspdf;
+         let documentPDF = new jsPDF();
+         documentPDF.text("REPORTE DE ÁRBOLES BARRIO ANDES",10,10)
+         documentPDF.text("EL BARRIOANDES TIENE"+ totalTrees,20,30)
+        
+         if(typeof documentPDF.autoTable!=="function"){
+            console.error ("No esta cargando bien!!");
+            return;
+         }
 
 
+         documentPDF.autoTable({
+             head: [['Árbol 1', 'Árbol 2', 'Distancia']], // Se corrigió la coma faltante
+             body: distance
+         });
+     
+         documentPDF.save("Andes.pdf");
+     }
+     
 
