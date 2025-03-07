@@ -21,24 +21,6 @@ async function loadPolygon() {
 }
 loadPolygon();
 
-// con esto visualizaba los puntos antes de asignarlos al boton
-/*
-async function loadPoint() {
-    let myData2 = await fetch('arboles_andes.geojson');
-    let myPoint = await myData2.json();
-
-    L.geoJSON(myPoint, {
-        style: {
-            color: 'black',
-            fillColor: 'green',
-            fillOpacity: 0.52,
-            weight: 0.5,
-            opacity: 0.9,
-        }
-    }).addTo(map);
-}   
-loadPoint();
-*/
 let btnTrees = document.getElementById('btnTrees');
 btnTrees.addEventListener('click', 
     async () => {
