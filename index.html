@@ -1,48 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Datos del Polígono</title>
-    
-    <!-- Leaflet CSS y JS -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    
-    <!-- Estilos -->
-    <link rel="stylesheet" href="estilos.css">
-    
-    <!-- Turf.js para análisis espacial -->
-    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js"></script>
-    
-    <!-- jsPDF para generación de reportes -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <title>Mapa de Barrio</title>
+    <link rel="stylesheet" href="estilos.css"> <!-- Enlace correcto al CSS -->
 </head>
 <body>
 
-    <div id="buttonContainer">
-        <button id="NVDI">NVDI</button>
-        <button id="SAVI">SAVI</button>
-        <button id="RUTA_TRASMILENO">RUTA TRANSMILENIO</button>
+    <div class="container">
+        <img id="barrioImage" src="ANDES.png" alt="Barrio">
+        <div class="text-overlay">
+            <div class="barrio" id="barrioNombre">Barrio</div>
+            <div class="localidad" id="localidadNombre">Localidad</div>
+        </div>
     </div>
 
-    <div id="map"></div>
-
-    <section id="polygon-section">
-        <h2>Datos del Polígono</h2>
-        <div id="polygon-info">
-            <p><strong>Área:</strong> <span id="area"></span> m²</p>
-            <p><strong>Perímetro:</strong> <span id="perimetro"></span> m</p>
-            <p><strong>Centroide:</strong> <span id="centroide"></span></p>
-            <p><strong>Bounding Box:</strong> <span id="bbox"></span></p>
-            <p><strong>Vértices:</strong> <span id="vertices"></span></p>
-        </div>
-    </section>
-
-    <script src="programa.js"></script>
-
+    <script src="programa.js"></script> <!-- Enlace correcto al script -->
 </body>
 </html>
