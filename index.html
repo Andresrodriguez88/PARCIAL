@@ -3,19 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa de Barrio</title>
-    <link rel="stylesheet" href="estilos.css"> <!-- Enlace correcto al CSS -->
+    <title>Mapa del Barrio</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="estilos.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 </head>
 <body>
 
-    <div class="container">
+    <h2>Imagen del Barrio</h2>
+    <div>
         <img id="barrioImage" src="ANDES.png" alt="Barrio">
         <div class="text-overlay">
-            <div class="barrio" id="barrioNombre">Barrio</div>
-            <div class="localidad" id="localidadNombre">Localidad</div>
+            <h1 id="barrioNombre">ANDES</h1>
+            <h3 id="localidadNombre">SUBA</h3>
         </div>
     </div>
 
-    <script src="programa.js"></script> <!-- Enlace correcto al script -->
+    <h2>Mapa del Barrio</h2>
+    <div id="map" style="height: 500px;"></div>
+
+    <h2>Información del Polígono</h2>
+    <p id="info">Cargando información...</p>
+
+    <script src="programa.js"></script>
+
 </body>
 </html>
