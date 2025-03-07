@@ -43,23 +43,7 @@ btnTrees.addEventListener('click',
     }
 )
 
-// manejador de boton distance
-/*
-let btnTrees = document.getElementById('btnDistance');
-btnTrees.addEventListener('click', 
-    async () => {
-        let response = await fetch("Arboles_andes.geojson"); 
-        let datos = await response.json(); 
-        //tomar los datos y mapear la llave feature que está en índice 1 ver archivo
-        let trees = datos.map((myElement, index) => {
-            return {
-                id: index + 1,
-                coordinates: myElement.geometry.coordinates
-            };
-        });
-    }
-);
-*/
+
 let btnDistance = document.getElementById('btnDistance');
 btnDistance.addEventListener('click', async () => {
     let response = await fetch("Arboles_andes.geojson"); 
@@ -114,7 +98,7 @@ function generatePdf(distance, totalTrees) {
     documentPDF.save("Andes.pdf");
 }
 
-//Manejador boton siniestros 
+
 
 let btnSiniestros = document.getElementById('btnSiniestros');
 btnSiniestros.addEventListener('click', 
@@ -137,3 +121,37 @@ btnSiniestros.addEventListener('click',
         ).addTo(map); // Se asegura que el método se encadene correctamente
     }
 )
+//DATOS
+async function loadPolygon() {
+    try {
+        let response = await fetch('Andes.geojson');
+        let data = await response.json();
+
+        let polygon = data.features[0].geometry.coordinates[0]; // Asumimos un polígono simple
+
+        let area = turf.area(data.features[0]);
+        let perimeter = turf.length(data.features[0], { units: 'meters' });
+        let centroid = turf.centroid(data.features[0]).geometry.coordinates;
+        let bbox = turf.bbox(data.features[0]);
+        let vertices = polygon.length;
+
+        // Mostrar datos en la sección del HTML
+        document.getElementById('area').textContent = area.toFixed(2);
+        document.getElementById('perimetro').textContent = perimeter.toFixed(2);
+        document.getElementById('centroide').textContent = `[${centroid[0].toFixed(6)}, ${centroid[1].toFixed(6)}]`;
+        document.getElementById('bbox').textContent = `[${bbox.map(coord => coord.toFixed(6)).join(', ')}]`;
+        document.getElementById('vertices').textContent = vertices;
+
+        // Dibujar el polígono en el mapa
+        let latlngs = polygon.map(coord => [coord[1], coord[0]]); // Invertir [lon, lat] a [lat, lon]
+        let polygonLayer = L.polygon(latlngs, { color: 'blue', fillOpacity: 0.5 }).addTo(map);
+        
+        map.fitBounds(polygonLayer.getBounds());
+
+    } catch (error) {
+        console.error('Error cargando el polígono:', error);
+    }
+}
+
+// Cargar datos del polígono cuando la página esté lista
+document.addEventListener('DOMContentLoaded', loadPolygon);
