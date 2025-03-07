@@ -68,3 +68,4 @@
 - Convertir la información de los árboles y distancias en una tabla.
 - Usar **jsPDF** para generar un informe en PDF.
 - Agregar **autoTable** para estructurar los datos en un formato legible.
+PA
